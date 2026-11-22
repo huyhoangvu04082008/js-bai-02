@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bài 2 - Form Validation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 360px;
+        margin: 40px auto;
+      }
+      input {
+        width: 100%;
+        padding: 8px;
+        margin: 6px 0 12px;
+        box-sizing: border-box;
+      }
+      button {
+        padding: 8px 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>Đăng ký tài khoản</h3>
+    <form onsubmit="return kiemTraForm();">
+      <label>Họ tên:</label>
+      <input type="text" id="hoTen" placeholder="Nhập họ tên" />
+
+      <label>Email:</label>
+      <input type="text" id="email" placeholder="example@gmail.com" />
+
+      <label>Mật khẩu (tối thiểu 6 ký tự):</label>
+      <input type="password" id="matKhau" placeholder="******" />
+
+      <button type="submit">Đăng ký</button>
+    </form>
+    <p id="thongBao"></p>
+
+    <script>
+      function kiemTraForm() {
+        let ten = document.getElementById("hoTen").value.trim();
+        let email = document.getElementById("email").value.trim();
+        let pass = document.getElementById("matKhau").value;
+        let tb = document.getElementById("thongBao");
+
+        if (ten === "" || email === "" || pass === "") {
+          tb.style.color = "red";
+          tb.innerText = "Lỗi: Không được để trống thông tin!";
+          return false;
+        }
+        if (!email.includes("@") || !email.includes(".")) {
+          tb.style.color = "red";
+          tb.innerText = "Lỗi: Email không đúng định dạng!";
+          return false;
+        }
+        if (pass.length < 6) {
+          tb.style.color = "red";
+          tb.innerText = "Lỗi: Mật khẩu phải từ 6 ký tự trở lên!";
+          return false;
+        }
+
+        tb.style.color = "green";
+        tb.innerText = "Đăng ký thành công! Xin chào " + ten;
+        return false; // Chặn reload trang để xem kết quả
+      }
+    </script>
+  </body>
+</html>
